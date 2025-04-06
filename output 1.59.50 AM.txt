@@ -1,0 +1,32 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/products             --> main.main.func1 (3 handlers)
+[GIN-debug] GET    /health                   --> main.main.func2 (3 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2025/04/05 - 15:46:22 | 200 |   5.90536175s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 18:29:38 | 200 |  5.355904542s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 18:30:25 | 200 |  4.932456833s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 18:59:51 | 200 |  5.899795125s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:07:03 | 200 |  4.759808917s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:07:31 | 200 |  5.474932334s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:35:04 | 200 |  6.452837833s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:50:42 | 200 |    5.1851455s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:54:43 | 200 |  5.626860542s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/05 - 19:54:48 | 200 |  5.217563041s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 17:55:01 | 200 |  5.735114333s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 17:55:22 | 200 |  7.007144583s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 18:14:58 | 404 |       3.292µs |             ::1 | GET      "/api/blinkit-raw?l0_cat=14&l1_cat=922"
+[GIN] 2025/04/06 - 18:15:26 | 404 |         708ns |             ::1 | GET      "/api/blinkit-raw?l0_cat=14&l1_cat=922"
+[GIN] 2025/04/06 - 18:16:32 | 404 |         833ns |             ::1 | GET      "/api/blinkit-raw?l0_cat=14&l1_cat=922"
+[GIN] 2025/04/06 - 19:29:36 | 200 |  6.659994167s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 19:35:54 | 200 |  6.617272125s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 20:50:41 | 200 |  5.757335625s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 23:19:35 | 200 |  5.239976541s |             ::1 | GET      "/api/products"
+[GIN] 2025/04/06 - 23:20:18 | 404 |       4.083µs |             ::1 | GET      "/api/products/listing?l0_cat=14&l1_cat=922"
+[GIN] 2025/04/06 - 23:49:07 | 404 |         292ns |             ::1 | GET      "/api/products/listing?l0_cat=14&l1_cat=922"
