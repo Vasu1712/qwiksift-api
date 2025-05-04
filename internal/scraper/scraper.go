@@ -1,11 +1,12 @@
 package scraper
 
 import (
-    "math/rand"
-    "sync"
-    "time"
-    
-    "github.com/Vasu1712/qwiksift/server/internal/models"
+	"math/rand"
+	"strings"
+	"sync"
+	"time"
+
+	"github.com/Vasu1712/qwiksift/server/internal/models"
 )
 
 type Scraper interface {
@@ -14,11 +15,58 @@ type Scraper interface {
 }
 
 // Define category pairs for Blinkit
-var blinkitCategories = map[string]string{
-    "14":   "922",   // Milk
-    "1487": "1489", // Fresh Vegetables
-    "1237": "940",  // Chips & Crisps
+var blinkitCategoryMappings = map[string]struct {
+    L0Cat string
+    L1Cat string
+}{
+    // Dairy products
+    "milk":      {"14", "922"},
+    "curd":      {"14", "949"},
+    "bread":     {"14", "953"},
+    "pav":       {"14", "953"},
+    "eggs":      {"14", "1200"},
+    "paneer":    {"14", "1005"},
+    "cheese":    {"14", "951"},
+    
+    // Fruits & Vegetables
+    "apple":     {"1487", "1489"},
+    "banana":    {"1487", "1489"},
+    "orange":    {"1487", "1489"},
+    "tomato":    {"1487", "1503"},
+    "potato":    {"1487", "1503"},
+    "onion":     {"1487", "1503"},
+    "vegetables":{"1487", "1503"},
+    "fruits":    {"1487", "1489"},
+    
+    // Snacks
+    "chips":     {"1237", "940"},
+    "biscuit":   {"6", "398"},
+    "chocolate": {"237", "1216"},
+    
+    // Default values
+    "default":   {"14", "922"},
 }
+
+// Add this function to find the best match for a search query
+func FindCategoryForSearchTerm(query string) (string, string) {
+    query = strings.ToLower(strings.TrimSpace(query))
+    
+    // First try exact match
+    if mapping, exists := blinkitCategoryMappings[query]; exists {
+        return mapping.L0Cat, mapping.L1Cat
+    }
+    
+    // Try partial match
+    for term, mapping := range blinkitCategoryMappings {
+        if strings.Contains(query, term) || strings.Contains(term, query) {
+            return mapping.L0Cat, mapping.L1Cat
+        }
+    }
+    
+    // Return default if no match
+    return blinkitCategoryMappings["default"].L0Cat, blinkitCategoryMappings["default"].L1Cat
+}
+
 
 // Define location coordinates
 var locations = []struct {
@@ -40,6 +88,12 @@ var (
     
     requestDelay = time.Duration(rand.Intn(5)+3) * time.Second
 )
+
+var blinkitCategories = map[string]string{
+    "14":   "922",   // Milk
+    "1487": "1489", // Fresh Vegetables
+    "1237": "940",  // Chips & Crisps
+}
 
 // ScrapeAll calls Scrape() on all registered scrapers
 func ScrapeAll() ([]models.Product, error) {
